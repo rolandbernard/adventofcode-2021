@@ -10,4 +10,5 @@ input*.txt
 *.o
 *.hi
 *.class
+obj_dir
 
