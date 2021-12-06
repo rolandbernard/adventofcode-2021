@@ -5,6 +5,8 @@ tmp.*
 .vim*
 compile_flags.txt
 input*.txt
+node_modules/
+package*.json
 
 # Compiled files
 *.out
