@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void incrementEnetry(vector<vector<int>>& map, vector<vector<bool>>& flashed, int i, int j) {
+void incrementEnergy(vector<vector<int>>& map, vector<vector<bool>>& flashed, int i, int j) {
     if (i >= 0 && j >= 0 && i < map.size() && j < map[0].size() && !flashed[i][j]) {
         map[i][j]++;
         if (map[i][j] > 9) {
@@ -11,7 +11,7 @@ void incrementEnetry(vector<vector<int>>& map, vector<vector<bool>>& flashed, in
             for (int di = -1; di <= 1; di++) {
                 for (int dj = -1; dj <= 1; dj++) {
                     if (di != 0 || dj != 0) {
-                        incrementEnetry(map, flashed, i + di, j + dj);
+                        incrementEnergy(map, flashed, i + di, j + dj);
                     }
                 }
             }
@@ -35,7 +35,7 @@ int main() {
         vector<vector<bool>> flash(map.size(), vector<bool>(map[0].size()));
         for (int i = 0; i < map.size(); i++) {
             for (int j = 0; j < map[i].size(); j++) {
-                incrementEnetry(map, flash, i, j);
+                incrementEnergy(map, flash, i, j);
             }
         }
         for (int i = 0; i < map.size(); i++) {

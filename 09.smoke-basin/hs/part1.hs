@@ -18,7 +18,6 @@ isLowPoint map (x, y) = p < a && p < b && p < l && p < r
         l = getPoint map (x - 1, y)
         r = getPoint map (x + 1, y)
 
-
 findLowPoints chart = filter (isLowPoint chart) ([(x, y) | x <- [1..width], y <- [1..height]])
     where
         width = length chart - 2
