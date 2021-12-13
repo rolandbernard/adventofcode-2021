@@ -26,6 +26,6 @@ print('Result:')
 
 for y in range(min[1], max[1] + 1):
     for x in range(min[0], max[0] + 1):
-        print('#' if (x, y) in points else ' ', end='')
+        print('██' if (x, y) in points else '  ', end='')
     print()
 
