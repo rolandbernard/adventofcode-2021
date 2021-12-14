@@ -12,7 +12,7 @@ int main() {
         if (bits.size() < number.size()) {
             bits.resize(number.size());
         }
-        for (int i = 0; i < number.size(); i++) {
+        for (size_t i = 0; i < number.size(); i++) {
             if (number[i] == '1') {
                 bits[number.size() - 1 - i]++;
             }
@@ -20,7 +20,7 @@ int main() {
         n++;
     }
     int first = 0;
-    for (int i = 0; i < bits.size(); i++) {
+    for (size_t i = 0; i < bits.size(); i++) {
         first |= (bits[i] >= n/2 ? 1 : 0) << i;
     }
     int second = ~first & ((1 << bits.size()) - 1);

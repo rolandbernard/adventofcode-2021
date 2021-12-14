@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void incrementEnergy(vector<vector<int>>& map, vector<vector<bool>>& flashed, int i, int j) {
+void incrementEnergy(vector<vector<int>>& map, vector<vector<bool>>& flashed, size_t i, size_t j) {
     if (i >= 0 && j >= 0 && i < map.size() && j < map[0].size() && !flashed[i][j]) {
         map[i][j]++;
         if (map[i][j] > 9) {
@@ -20,7 +20,6 @@ void incrementEnergy(vector<vector<int>>& map, vector<vector<bool>>& flashed, in
 }
 
 int main() {
-    int count = 0;
     vector<vector<int>> map;
     string line;
     while (cin >> line) {
@@ -33,13 +32,13 @@ int main() {
     long res = 0;
     for (int s = 0; s < 100; s++) {
         vector<vector<bool>> flash(map.size(), vector<bool>(map[0].size()));
-        for (int i = 0; i < map.size(); i++) {
-            for (int j = 0; j < map[i].size(); j++) {
+        for (size_t i = 0; i < map.size(); i++) {
+            for (size_t j = 0; j < map[i].size(); j++) {
                 incrementEnergy(map, flash, i, j);
             }
         }
-        for (int i = 0; i < map.size(); i++) {
-            for (int j = 0; j < map[i].size(); j++) {
+        for (size_t i = 0; i < map.size(); i++) {
+            for (size_t j = 0; j < map[i].size(); j++) {
                 if (flash[i][j]) {
                     map[i][j] = 0;
                     res++;

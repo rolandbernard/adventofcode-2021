@@ -4,7 +4,6 @@
 using namespace std;
 
 int main() {
-    int count = 0;
     vector<vector<int>> map;
     string line;
     while (cin >> line) {
@@ -15,8 +14,8 @@ int main() {
         map.push_back(map_line);
     }
     int basin_size[3] = { 0, 0, 0 };
-    for (int i = 0; i < map.size(); i++) {
-        for (int j = 0; j < map[i].size(); j++) {
+    for (size_t i = 0; i < map.size(); i++) {
+        for (size_t j = 0; j < map[i].size(); j++) {
             if (
                 (i == 0 || map[i - 1][j] > map[i][j])
                 && (i == map.size() - 1 || map[i + 1][j] > map[i][j])
@@ -24,10 +23,10 @@ int main() {
                 && (j == map[i].size() - 1 || map[i][j + 1] > map[i][j])
             ) {
                 int size = 0;
-                queue<pair<int, int>> to_analyze;
+                queue<pair<size_t, size_t>> to_analyze;
                 to_analyze.push(make_pair(i, j));
                 while (!to_analyze.empty()) {
-                    pair<int, int> p = to_analyze.front();
+                    pair<size_t, size_t> p = to_analyze.front();
                     to_analyze.pop();
                     if (map[p.first][p.second] != 9) {
                         size++;

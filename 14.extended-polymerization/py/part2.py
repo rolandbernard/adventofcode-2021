@@ -36,5 +36,5 @@ for key in state:
     for c in key:
         counts[c] += state[key]
 
-print((max(counts.values()) - min(counts.values())) // 2)
+print('Result:', (max(counts.values()) - min(counts.values())) // 2)
 

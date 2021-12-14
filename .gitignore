@@ -3,10 +3,13 @@ tmp/
 tmp.*
 .vscode
 .vim*
-compile_flags.txt
 input*.txt
-node_modules/
+
+# Language specific
+compile_flags.txt
+.Rhistory
 package*.json
+node_modules/
 
 # Compiled files
 *.out

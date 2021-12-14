@@ -25,5 +25,5 @@ for _ in range(10):
 
 _, counts = np.unique([c for c in state], return_counts=True)
 
-print("Result:", max(counts) - min(counts))
+print('Result:', max(counts) - min(counts))
 
