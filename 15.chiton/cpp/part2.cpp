@@ -21,7 +21,7 @@ int main() {
     dists[0][0] = 0;
     queue.push(make_pair(0, 0));
     auto map_val = [&map](int x, int y) -> int {
-        return (map[x % map.size()][y % map.size()] + (x / map.size() + y / (map.size())) - 1) % 9 + 1;
+        return (map[x % map.size()][y % map[0].size()] + (x / map.size() + y / map[0].size()) - 1) % 9 + 1;
     };
     while (!queue.empty()) {
         pair<int, int> p = queue.top();
