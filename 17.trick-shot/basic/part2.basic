@@ -1,0 +1,40 @@
+ 10 Def Fn min(X%, Y%) = If X < Y Then X Else Y
+ 20 Def Fn max(X%, Y%) = If X > Y Then X Else Y
+ 30 Input S$
+ 40 S = Right(S, Len(S) - 15)
+ 50 AT = ","
+ 60 GoSub 370
+ 70 XS = Left(S, I% - 1)
+ 90 YS = Right(S, Len(S) - I - 3)
+100 S = XS
+110 AT = "."
+120 GoSub 370
+130 MINX = Int(Val(Left(XS, I - 1)))
+140 MAXX = Int(Val(Right(XS, Len(XS) - I - 1)))
+150 S = YS
+160 AT = "."
+170 GoSub 370
+180 MINY = Int(Val(Left(YS, I - 1)))
+190 MAXY = Int(Val(Right(YS, Len(YS) - I - 1)))
+200 COUNT% = 0
+210 For DY% = Fn min(0, MINY) To Fn max(-MINY - 1, MAXY)
+220     For DX% = Fn min(0, MINX) To Fn max(0, MAXX)
+230         X = 0 : Y = 0
+240         DDX = DX : DDY = DY
+250         If Y < MINY Then Goto 330
+260             If X >= MINX And X <= MAXX And Y >= MINY AND Y <= MAXY Then Goto 320
+270             X = X + DDX : Y = Y + DDY
+280             DDY = DDY - 1
+290             If DDX > 0 Then DDX = DDX - 1
+300             If DDX < 0 Then DDX = DDX + 1
+310         Goto 250
+320         COUNT = COUNT + 1
+330      Next DX
+340 Next DY
+350 Print "Result: " ; COUNT
+360 End
+370 Rem indexof(S$, AT$) -> I%
+380     For I% = 1 To Len(S)
+390         If Right(Left(S, I), 1) = AT Then Goto 410
+400     Next I
+410     Return

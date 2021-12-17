@@ -20,7 +20,7 @@ Day | Solutions | Puzzle
  14 | [C](14.extended-polymerization/c) [Python](14.extended-polymerization/py) [x86-64 Assembly](14.extended-polymerization/x86-64) | [Link](https://adventofcode.com/2021/day/14)
  15 | [C](15.chiton/c) [C++](15.chiton/cpp) [Python](15.chiton/py) | [Link](https://adventofcode.com/2021/day/15)
  16 | [C](16.packet-decoder/c) [Python](16.packet-decoder/py) [TypeScript](16.packet-decoder/ts) | [Link](https://adventofcode.com/2021/day/16)
- 17 | | [Link](https://adventofcode.com/2021/day/17)
+ 17 | [Basic](17.trick-shot/basic) [C++](17.trick-shot/cpp) [Haskell](17.trick-shot/hs) | [Link](https://adventofcode.com/2021/day/17)
  18 | | [Link](https://adventofcode.com/2021/day/18)
  19 | | [Link](https://adventofcode.com/2021/day/19)
  20 | | [Link](https://adventofcode.com/2021/day/20)
@@ -33,10 +33,11 @@ Day | Solutions | Puzzle
  Language | Solutions
 :--------:|:----------
 Bash | [6](06.lanternfish/bash)
+Basic | [17](17.trick-shot/basic)
 C | [13](13.transparent-origami/c) [14](14.extended-polymerization/c) [15](15.chiton/c) [16](16.packet-decoder/c)
 C# | [9](09.smoke-basin/cs)
-C++ | [1](01.sonar-sweep/cpp) [2](02.dive/cpp) [3](03.binary-diagnostic/cpp) [4](04.giant-squid/cpp) [5](05.hydrothermal-venture/cpp) [6](06.lanternfish/bash) [7](07.the-treachery-of-whales/cpp) [8](08.seven-segment-search/cpp) [9](09.smoke-basin/cpp) [10](10.syntax-scoring/cpp) [11](11.dumbo-octopus/cpp) [12](12.passage-pathing/cpp) [15](15.chiton/cpp)
-Haskell | [2](02.dive/hs) [9](09.smoke-basin/hs) [10](10.syntax-scoring/hs) [11](11.dumbo-octopus/hs) [13](13.transparent-origami/hs)
+C++ | [1](01.sonar-sweep/cpp) [2](02.dive/cpp) [3](03.binary-diagnostic/cpp) [4](04.giant-squid/cpp) [5](05.hydrothermal-venture/cpp) [6](06.lanternfish/bash) [7](07.the-treachery-of-whales/cpp) [8](08.seven-segment-search/cpp) [9](09.smoke-basin/cpp) [10](10.syntax-scoring/cpp) [11](11.dumbo-octopus/cpp) [12](12.passage-pathing/cpp) [15](15.chiton/cpp) [17](17.trick-shot/cpp)
+Haskell | [2](02.dive/hs) [9](09.smoke-basin/hs) [10](10.syntax-scoring/hs) [11](11.dumbo-octopus/hs) [13](13.transparent-origami/hs) [17](17.trick-shot/hs)
 Java | [5](05.hydrothermal-venture/java)
 JavaScript | [4](04.giant-squid/js) [12](12.passage-pathing/js)
 PHP | [8](08.seven-segment-search/php)

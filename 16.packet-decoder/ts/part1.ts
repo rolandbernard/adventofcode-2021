@@ -14,12 +14,7 @@ function readPackets(): number {
     const version = readBits(3);
     const type = readBits(3);
     if (type == 4) {
-        do {
-            
-        }
-        while ((readBits(5) & 0x10) != 0) {
-
-        }
+        while ((readBits(5) & 0x10) != 0);
         return version;
     } else {
         if (readBits(1) == 0) {
