@@ -2,9 +2,9 @@
 import Data.List.Split
 import Data.Char
 
-data Number = Int Int | Pair (Number, Number) deriving (Show)
+data Number = Int Int | Pair Number Number deriving (Eq, Show)
 
-parseHelper ('[':xs) = (Pair (first, second), tail rest)
+parseHelper ('[':xs) = (Pair first second, tail rest)
     where
         (first, rest') = parseHelper xs
         (second, rest) = parseHelper (tail rest')
@@ -14,65 +14,50 @@ parseHelper string = (Int (read number), rest)
 parse string = number
     where (number, _) = parseHelper string
 
-applyFirst (Int x) dx = (Int (x + dx), 0)
-applyFirst (Pair (x, y)) d = (Pair (x', y'), d'')
-    where
-        (x', d') = applyFirst x d
-        (y', d'') = applyFirst y d'
+addFirst (Int x) dx = Int (x + dx)
+addFirst (Pair x y) d = Pair (addFirst x d) y
 
-applyLast (Int x) dx = (Int (x + dx), 0)
-applyLast (Pair (x, y)) d = (Pair (x', y'), d'')
-    where
-        (y', d') = applyLast y d
-        (x', d'') = applyLast x d'
-
-magn (Int i) = i
-magn (Pair (x, y)) = (3 * magn x) + (2 * magn y)
+addLast (Int x) dx = Int (x + dx)
+addLast (Pair x y) d = Pair x (addLast y d)
 
 explodeStep (Int i) _ = (False, Int i, 0, 0)
-explodeStep (Pair (Int l, Int r)) d
+explodeStep (Pair (Int l) (Int r)) d
     | d >= 4 = (True, Int 0, l, r)
-explodeStep (Pair (l, r)) d
-    | b = (True, Pair (x, r'), dl, ddr')
-    | b' = (True, Pair (l', x'), ddl', dr')
-    | otherwise = (False, Pair (l, r), 0, 0)
+explodeStep (Pair l r) d
+    | b = (True, Pair x (addFirst r dr), dl, 0)
+    | b' = (True, Pair (addLast l dl') x', 0, dr')
+    | otherwise = (False, Pair l r, 0, 0)
     where
         (b, x, dl, dr) = explodeStep l (d + 1)
         (b', x', dl', dr') = explodeStep r (d + 1)
-        (r', ddr') = applyFirst r dr
-        (l', ddl') = applyLast l dl'
-
-splitNumber i
-    | even i = (Int (i `div` 2), Int (i `div` 2))
-    | otherwise = (Int (i `div` 2), Int ((i `div` 2) + 1))
 
 splitStep (Int i)
-    | i >= 10 = (True, Pair (splitNumber i))
+    | i >= 10 = (True, Pair (Int (i `div` 2)) (Int ((i + 1) `div` 2)))
     | otherwise = (False, Int i)
-splitStep (Pair (l, r))
-    | b = (True, Pair (l', r))
-    | b' = (True, Pair (l, r'))
-    | otherwise = (False, Pair (l, r))
+splitStep (Pair l r)
+    | b = (True, Pair l' r)
+    | b' = (True, Pair l r')
+    | otherwise = (False, Pair l r)
     where
         (b, l') = splitStep l
         (b', r') = splitStep r
 
-reduceStep x
-    | r = (True, x')
-    | r' = (True, x'')
-    | otherwise = (False, x)
+reduce x
+    | r = reduce x'
+    | r' = reduce x''
+    | otherwise = x
     where
         (r, x', _, _) = explodeStep x 0
         (r', x'') = splitStep x
 
-reduce x = if r then reduce x' else x
-    where (r, x') = reduceStep x
+add a b = reduce (Pair a b)
 
-add a b = reduce (Pair (a, b))
+magn (Int i) = i
+magn (Pair x y) = (3 * magn x) + (2 * magn y)
 
 main = do
     dat <- getContents
     let numbers = map parse (filter (not . null) (splitOn "\n" dat)) :: [Number]
-    let mmax = foldl max 0 [magn (add x y) | x <- numbers, y <- numbers]
+    let mmax = foldl max 0 [magn (add x y) | x <- numbers, y <- numbers, x /= y]
     putStrLn ("Result: " ++ show mmax)
 
