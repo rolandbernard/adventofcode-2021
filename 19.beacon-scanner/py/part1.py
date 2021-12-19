@@ -18,7 +18,7 @@ def posibleRotations():
     for y in range(4):
         for x in range(4):
             yield np.dot(rotate(x, 0), rotate(y, 1))
-    for z in [-1, 1]:
+    for z in [1, 3]:
         for x in range(4):
             yield np.dot(rotate(x, 0), rotate(z, 2))
 
