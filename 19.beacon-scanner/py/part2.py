@@ -10,13 +10,8 @@ def parseScanner(s: str):
 scanners = [parseScanner(s) for s in sys.stdin.read().strip().split('\n\n')]
 
 def rotate(d, a):
-    sin = [0, 1, 0, -1]
-    cos = [1, 0, -1, 0]
-    mat = [
-        [1, 0, 0],
-        [0, cos[d], -sin[d]],
-        [0, sin[d], cos[d]]
-    ]
+    sin = [0, 1, 0, -1, 0]
+    mat = [[1, 0, 0], [0, sin[d + 1], -sin[d]], [0, sin[d], sin[d + 1]]]
     return np.roll(mat, a, (0, 1))
 
 def posibleRotations():
@@ -59,7 +54,7 @@ while len(missing) != 0:
                 positions[i] = apos
                 scanners[i] = [tuple(np.dot(rot, p)) for p in scanners[i]]
 
-maxd = max(abs(np.subtract(x, y)).sum() for x in positions.values() for y in positions.values() if x != y)
+maxd = max(abs(np.subtract(x, y)).sum() for x in positions.values() for y in positions.values())
 
 print("Result:", maxd)
 
