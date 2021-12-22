@@ -36,7 +36,7 @@ for on, iv in seq:
     if on:
         reactor.add(iv)
 
-count = sum(map(lambda i: (i[0][1] - i[0][0] + 1) * (i[1][1] - i[1][0] + 1) * (i[2][1] - i[2][0] + 1), reactor))
+count = sum((i[0][1] - i[0][0] + 1) * (i[1][1] - i[1][0] + 1) * (i[2][1] - i[2][0] + 1) for i in reactor)
 
 print("Result:",  count)
 

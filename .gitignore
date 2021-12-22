@@ -16,6 +16,7 @@ node_modules/
 *.o
 *.hi
 *.class
+*.tasty
 *.exe
 obj_dir
 
