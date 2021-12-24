@@ -49,7 +49,6 @@ def toTuple(s):
 result = pos
 pos = toTuple(pos)
 cost = {pos: 0}
-prev = {pos: None}
 queue = [(heur(pos), 0, pos)]
 while queue:
     h, d, s = hq.heappop(queue)
@@ -69,7 +68,6 @@ while queue:
                         pos = toTuple(pos)
                         if pos not in cost or cost[pos] > c:
                             cost[pos] = c
-                            prev[pos] = s
                             hq.heappush(queue, (c + heur(pos), c, pos))
             else:
                 for h in range(11):
@@ -80,7 +78,6 @@ while queue:
                         pos = toTuple(pos)
                         if pos not in cost or cost[pos] > c:
                             cost[pos] = c
-                            prev[pos] = s
                             hq.heappush(queue, (c + heur(pos), c, pos))
 
 print('Result:', cost[result])

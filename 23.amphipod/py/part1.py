@@ -20,7 +20,7 @@ def heur(s):
     h = 0
     for i, l in enumerate(s):
         for x in l:
-            if x[0] == 0:
+            if x[1] == 0:
                 h += 10**i * (abs(x[0] - (2+2*i)) + 1)
             elif x[0] != (2+2*i):
                 h += 10**i * (abs(x[0] - (2+2*i)) + -x[1] + 1)
@@ -48,7 +48,6 @@ def toTuple(s):
 result = pos
 pos = toTuple(pos)
 cost = {pos: 0}
-prev = {pos: None}
 queue = [(heur(pos), 0, pos)]
 while queue:
     h, d, s = hq.heappop(queue)
@@ -66,7 +65,6 @@ while queue:
                         pos = toTuple(pos)
                         if pos not in cost or cost[pos] > c:
                             cost[pos] = c
-                            prev[pos] = s
                             hq.heappush(queue, (c + heur(pos), c, pos))
             else:
                 for h in range(11):
@@ -77,7 +75,6 @@ while queue:
                         pos = toTuple(pos)
                         if pos not in cost or cost[pos] > c:
                             cost[pos] = c
-                            prev[pos] = s
                             hq.heappush(queue, (c + heur(pos), c, pos))
 
 print('Result:', cost[result])
