@@ -1,5 +1,5 @@
 
-Just my solutions for the Advent of Code 2021.
+Just my solutions for the [Advent of Code 2021](https://adventofcode.com/2021).
 Most puzzles have solutions in multiple languages:
 
 Day | Solutions | Puzzle
@@ -13,7 +13,7 @@ Day | Solutions | Puzzle
   7 | [C++](07.the-treachery-of-whales/cpp) [Python](07.the-treachery-of-whales/py) [SQL](07.the-treachery-of-whales/sql) | [Link](https://adventofcode.com/2021/day/7)
   8 | [C++](08.seven-segment-search/cpp) [PHP](08.seven-segment-search/php) [Python](08.seven-segment-search/py) [Rust](08.seven-segment-search/rs) | [Link](https://adventofcode.com/2021/day/8)
   9 | [C++](09.smoke-basin/cpp) [C#](09.smoke-basin/cs) [Haskell](09.smoke-basin/hs) [Python](09.smoke-basin/py) | [Link](https://adventofcode.com/2021/day/9)
- 10 | [C++](10.syntax-scoring/cpp) [Haskell](10.syntax-scoring/hs) [Python](10.syntax-scoring/py) | [Link](https://adventofcode.com/2021/day/10)
+ 10 | [C++](10.syntax-scoring/cpp) [Haskell](10.syntax-scoring/hs) [OCaml](10.syntax-scoring/ml) [Python](10.syntax-scoring/py) | [Link](https://adventofcode.com/2021/day/10)
  11 | [C++](11.dumbo-octopus/cpp) [Haskell](11.dumbo-octopus/hs) [Python](11.dumbo-octopus/py) [Rust](11.dumbo-octopus/rs) | [Link](https://adventofcode.com/2021/day/11)
  12 | [C++](12.passage-pathing/cpp) [JavaScript](12.passage-pathing/js) [Python](12.passage-pathing/py) [Rust](12.passage-pathing/rs) | [Link](https://adventofcode.com/2021/day/12)
  13 | [C](13.transparent-origami/c) [Haskell](13.transparent-origami/hs) [PowerShell](13.transparent-origami/ps) [Python](13.transparent-origami/py) | [Link](https://adventofcode.com/2021/day/13)
@@ -27,11 +27,12 @@ Day | Solutions | Puzzle
  21 | [Go](21.dirac-dice/go) [Haskell](21.dirac-dice/hs) [Python](21.dirac-dice/py) | [Link](https://adventofcode.com/2021/day/21)
  22 | [C](22.reactor-reboot/c) [Python](22.reactor-reboot/py) [Scala](22.reactor-reboot/scala) | [Link](https://adventofcode.com/2021/day/22)
  23 | [C++](23.amphipod/cpp) [Python](23.amphipod/py) [Rust](23.amphipod/rs) | [Link](https://adventofcode.com/2021/day/23)
- 24 | [C++](24.arithmetic-logic-unit/cpp) [Python](24.arithmetic-logic-unit/py) | [Link](https://adventofcode.com/2021/day/24)
- 25 | | [Link](https://adventofcode.com/2021/day/25)
+ 24 | [C++](24.arithmetic-logic-unit/cpp) [OpenCL](24.arithmetic-logic-unit/cl) [Python](24.arithmetic-logic-unit/py) | [Link](https://adventofcode.com/2021/day/24)
+ 25 | [AssemblyScript](25.sea-cucumber/as) [Python](25.sea-cucumber/py) | [Link](https://adventofcode.com/2021/day/25)
 
  Language | Solutions
 :--------:|:----------
+AssemblyScript | [25](25.sea-cucumber/as)
 Bash | [6](06.lanternfish/bash)
 Basic | [17](17.trick-shot/basic)
 C | [13](13.transparent-origami/c) [14](14.extended-polymerization/c) [15](15.chiton/c) [16](16.packet-decoder/c) [22](22.reactor-reboot/c)
@@ -42,10 +43,11 @@ Go | [21](21.dirac-dice/go)
 Haskell | [2](02.dive/hs) [9](09.smoke-basin/hs) [10](10.syntax-scoring/hs) [11](11.dumbo-octopus/hs) [13](13.transparent-origami/hs) [17](17.trick-shot/hs) [21](21.dirac-dice/hs)
 Java | [5](05.hydrothermal-venture/java) [18](18.snailfish/hs)
 JavaScript | [4](04.giant-squid/js) [12](12.passage-pathing/js)
-OpenCL | [20](20.trench-map/cl)
+OCaml | [10](10.syntax-scoring/ml)
+OpenCL | [20](20.trench-map/cl) [24](24.arithmetic-logic-unit/cl)
 PHP | [8](08.seven-segment-search/php)
 PowerShell | [13](13.transparent-origami/ps)
-Python | [3](03.binary-diagnostic/py) [4](04.giant-squid/py) [5](05.hydrothermal-venture/py) [6](06.lanternfish/py) [7](07.the-treachery-of-whales/py) [8](08.seven-segment-search/py) [9](09.smoke-basin/py) [10](10.syntax-scoring/py) [11](11.dumbo-octopus/py) [12](12.passage-pathing/py) [13](13.transparent-origami/py) [14](14.extended-polymerization/py) [15](15.chiton/py) [16](16.packet-decoder/py) [18](18.snailfish/py) [19](19.beacon-scanner/py) [20](20.trench-map/py) [21](21.dirac-dice/py) [22](22.reactor-reboot/py) [23](23.amphipod/py) [24](24.arithmetic-logic-unit/py)
+Python | [3](03.binary-diagnostic/py) [4](04.giant-squid/py) [5](05.hydrothermal-venture/py) [6](06.lanternfish/py) [7](07.the-treachery-of-whales/py) [8](08.seven-segment-search/py) [9](09.smoke-basin/py) [10](10.syntax-scoring/py) [11](11.dumbo-octopus/py) [12](12.passage-pathing/py) [13](13.transparent-origami/py) [14](14.extended-polymerization/py) [15](15.chiton/py) [16](16.packet-decoder/py) [18](18.snailfish/py) [19](19.beacon-scanner/py) [20](20.trench-map/py) [21](21.dirac-dice/py) [22](22.reactor-reboot/py) [23](23.amphipod/py) [24](24.arithmetic-logic-unit/py) [25](25.sea-cucumber/py)
 Rust | [5](05.hydrothermal-venture/rs) [8](08.seven-segment-search/rs) [11](11.dumbo-octopus/rs) [12](12.passage-pathing/rs) [18](18.snailfish/rs) [23](23.amphipod/rs)
 Scala | [22](22.reactor-reboot/scala)
 Smalltalk | [4](04.giant-squid/st)

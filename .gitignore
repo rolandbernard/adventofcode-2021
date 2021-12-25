@@ -10,6 +10,7 @@ compile_flags.txt
 .Rhistory
 package*.json
 node_modules/
+tsconfig.json
 
 # Compiled files
 *.out
@@ -18,5 +19,8 @@ node_modules/
 *.class
 *.tasty
 *.exe
+*.cmi
+*.cmo
+*.wasm
 obj_dir
 
