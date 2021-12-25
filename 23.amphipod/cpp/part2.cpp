@@ -62,11 +62,23 @@ int heuristic(const GameState& s) {
     int h = 0;
     for (int i = 0; i < TYPES; i++) {
         for (int j = 0; j < DEPTH; j++) {
-            h += costs[i] * (
-                abs(s.loc[i][j][0] - rooms[i])
-                + (s.loc[i][j][0] != rooms[i]
-                    ? s.loc[i][j][1] + j : j - s.loc[i][j][1])
-            );
+            int c = abs(s.loc[i][j][0] - rooms[i]) + j - s.loc[i][j][1];
+            bool must_move = false;
+            for (int ik = 0; !must_move && ik < TYPES; ik++) {
+                for (int jk = 0; !must_move && jk < DEPTH; jk++) {
+                    if (
+                        s.loc[ik][jk][0] == s.loc[i][j][0]
+                        && s.loc[ik][jk][0] != rooms[ik]
+                        && s.loc[ik][jk][1] >= s.loc[i][j][1]
+                    ) {
+                        must_move = true;
+                    }
+                }
+            }
+            if (must_move) {
+                c += 2*s.loc[i][j][1];
+            }
+            h += costs[i] * c;
         }
     }
     return h;
@@ -93,7 +105,7 @@ bool canMove(const GameState& s, const array<int8_t, 2>& from, const array<int8_
     }
     for (int i = 0; i < TYPES; i++) {
         for (int j = 0; j < DEPTH; j++) {
-            const array<int8_t, 2> &x = s.loc[i][j];
+            const array<int8_t, 2>& x = s.loc[i][j];
             if (x[0] != from[0] || x[1] != from[1]) {
                 if (x[1] == 0 && x[0] > min(to[0], from[0]) && x[0] < max(to[0], from[0])) {
                     return false;
