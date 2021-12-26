@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define ITERATIONS 2
+#define DEPTH 5
 
 size_t b9to10(size_t in) {
     size_t tmp = 0;
@@ -27,14 +27,14 @@ size_t b9to10(size_t in) {
 
 size_t b10to9(size_t in) {
     size_t tmp = 0;
-    for (int i = 0; i < 14; i++) {
+    for (int i = 0; i < 14 - DEPTH; i++) {
         tmp *= 9;
         tmp += (in % 10) - 1;
         in /= 10;
     }
     in = tmp;
     tmp = 0;
-    for (int i = 0; i < 14; i++) {
+    for (int i = 0; i < 14 - DEPTH; i++) {
         tmp *= 9;
         tmp += in % 9;
         in /= 9;
@@ -44,15 +44,25 @@ size_t b10to9(size_t in) {
 
 int main() {
     stringstream source;
-    source << "__kernel void runProgram(__global uchar* result, ulong off) {" << endl;
+    source << "__kernel void runProgram(__global uint* result, ulong off) {" << endl;
     source << "size_t id = get_global_id(0); size_t tmp = id + off; size_t inp = 0;" << endl;
-    source << "for (int i = 0; i < 14; i++) { inp *= 9; inp += tmp % 9; tmp /= 9; }" << endl;
+    source << "result[id + 1] = 0;" << endl;
+    source << "for (int i = 0; i < " << (14 - DEPTH) << "; i++) { inp *= 9; inp += tmp % 9; tmp /= 9; }" << endl;
     source << "int w = 0, x = 0, y = 0, z = 0;" << endl;
     string opc, arg0, arg1;
+    int i = 14;
     while (cin >> opc) {
         if (opc == "inp") {
             cin >> arg0;
-            source << arg0 << " = (inp % 9) + 1; inp /= 9;" << endl;
+            if (i <= DEPTH) {
+                source << "int w" << i << " = w, x" << i << " = x, y" << i << " = y, z" << i << " = z;" << endl;
+                source << "for (int i" << i << "= 1; i" << i << " <= 9; i" << i << "++) {" << endl;
+                source << "w = w" << i << "; x = x" << i << "; y = y" << i << "; z = z" << i << ";" << endl;
+                source << arg0 << " = i" << i << ";" << endl;
+            } else {
+                source << arg0 << " = (inp % 9) + 1; inp /= 9;" << endl;
+            }
+            i--;
         } else {
             cin >> arg0 >> arg1;
             if (opc == "add") {
@@ -68,8 +78,18 @@ int main() {
             }
         }
     }
-    source << "result[id + 1] = (z == 0);" << endl;
-    source << "if (z == 0) { result[0] = true; }" << endl;
+    source << "if (z == 0) {" << endl;
+    source << "int res = 0;" << endl;
+    for (int j = DEPTH; j > 0; j--) {
+        source << "res *= 9;" << endl;
+        source << "res += i" << j << " - 1;" << endl;
+    }
+    source << "result[id + 1] = res + 1;" << endl;
+    source << "result[0] = true;" << endl;
+    source << "}" << endl;
+    for (int j = 1; j <= DEPTH; j++) {
+        source << "}" << endl;
+    }
     source << "}" << endl;
     string source_str = source.str();
 
@@ -97,36 +117,39 @@ int main() {
 
     cl_kernel kernel = clCreateKernel(program, "runProgram", &res);
 
-    size_t iter_size = 9*9*9*9*9*9*9*9*9;
-    cl_uchar* hbuffer = new cl_uchar[iter_size + 1];
-    cl_mem buffer = clCreateBuffer(context, CL_MEM_WRITE_ONLY, iter_size + 1, nullptr, &res);
-
+    size_t iter_size = 9*9*9*9*9*9;
+    cl_uint* hbuffer = new cl_uint[iter_size + 1];
+    cl_mem buffer = clCreateBuffer(context, CL_MEM_WRITE_ONLY, (iter_size + 1) * sizeof(cl_uint), nullptr, &res);
     clSetKernelArg(kernel, 0, sizeof(cl_mem), (void*)&buffer);
 
+    size_t inner = 1;
+    for (int i = 0; i < DEPTH; i++) {
+        inner *= 9;
+    }
     size_t min = ~0UL;
     for (size_t iter_offset = b10to9(99999999999999) + 1 - iter_size; min == ~0UL; iter_offset -= iter_size) {
         clock_t start = clock();
         cl_ulong off = iter_offset;
         clSetKernelArg(kernel, 1, sizeof(cl_ulong), (void*)&off);
         clEnqueueNDRangeKernel(queue, kernel, 1, NULL, &iter_size, nullptr, 0, nullptr, nullptr);
-        clEnqueueReadBuffer(queue, buffer, CL_TRUE, 0, 1, hbuffer, 0, nullptr, nullptr);
+        clEnqueueReadBuffer(queue, buffer, CL_TRUE, 0, sizeof(cl_int), hbuffer, 0, nullptr, nullptr);
         if (hbuffer[0]) {
-            clEnqueueReadBuffer(queue, buffer, CL_TRUE, 0, iter_size + 1, hbuffer, 0, nullptr, nullptr);
-            for (size_t i = 0; i < iter_size; i++) {
-                if (hbuffer[i + 1]) {
-                    min = iter_offset + i;
+            clEnqueueReadBuffer(queue, buffer, CL_TRUE, 0, (iter_size + 1) * sizeof(cl_uint), hbuffer, 0, nullptr, nullptr);
+            for (size_t i = iter_size; i > 0; i--) {
+                if (hbuffer[i]) {
+                    min = (iter_offset + i - 1) * inner + hbuffer[i] - 1;
                     break;
                 }
             }
         }
         clock_t end = clock();
-        size_t ps = iter_size * CLOCKS_PER_SEC / (end - start);
+        size_t ps = iter_size * inner * CLOCKS_PER_SEC / (end - start);
         size_t u = 0;
         while (ps > 10000) {
             u++;
             ps /= 1000;
         }
-        cerr << "iter " << b9to10(iter_offset) << " - ";
+        cerr << "iter " << b9to10(iter_offset * inner) << " - ";
         cerr << ps << " " << "1kMGTPEZY"[u] << "/s" << endl;
     }
     
